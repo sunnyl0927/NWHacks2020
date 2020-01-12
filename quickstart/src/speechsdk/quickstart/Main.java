@@ -1,3 +1,4 @@
+
 package speechsdk.quickstart;
 
 import java.util.concurrent.Future;
