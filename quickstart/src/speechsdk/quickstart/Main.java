@@ -1,7 +1,8 @@
 
 package speechsdk.quickstart;
-
+import java.util.*;
 import java.util.concurrent.Future;
+
 import com.microsoft.cognitiveservices.speech.*;
 
 /**
@@ -19,8 +20,24 @@ public class Main {
         String serviceRegion = "westus";
         SpeechConfig config = SpeechConfig.fromSubscription(speechSubscriptionKey, serviceRegion);
         assert(config != null);
-
-
+        ArrayList<String> sentence = new ArrayList<String>();
+        sentence.add("hello");
+        sentence.add("this");
+        sentence.add("is");
+        sentence.add("a");
+        sentence.add("test");
+        
+        while(!sentence.isEmpty()) {
+        	String word = sentence.get(0);
+        	System.out.println("current word is:" + word);
+        	if(voiceInput(config).contains(word.toLowerCase())) {
+        		System.out.println("Good job!");
+        		sentence.remove(0);
+        	}
+        	else {
+        		System.out.println("Incorrect, try again");
+        	}
+        }
         System.out.println(voiceInput(config));
         System.out.println(voiceInput(config));
         System.out.println(voiceInput(config));
@@ -32,7 +49,8 @@ public class Main {
     	assert(reco != null);
 
         System.out.println("Say something...");
-
+        
+        // records audio for 15 seconds or until audio dims
         Future<SpeechRecognitionResult> task = reco.recognizeOnceAsync();
         assert(task != null);
         
