@@ -1,14 +1,18 @@
 
 package speechsdk.quickstart;
+import java.io.File;
 import java.util.*;
 import java.util.concurrent.Future;
+import javax.swing.JApplet;
+import javax.swing.SwingUtilities;
+import javax.swing.JLabel;
 
 import com.microsoft.cognitiveservices.speech.*;
 
 /**
  * Quickstart: recognize speech using the Speech SDK for Java.
  */
-public class Main {
+public class Main extends JApplet{
 
     /**
      * @param args Arguments are ignored in this sample.
@@ -27,10 +31,14 @@ public class Main {
         sentence.add("a");
         sentence.add("test");
         
+        System.out.print("Please enter a file to read: ");
+        Scanner scan = new Scanner(System.in);
+        File file = new File(scan.next());
+        
         while(!sentence.isEmpty()) {
         	String word = sentence.get(0);
         	System.out.println("current word is:" + word);
-        	if(voiceInput(config).contains(word.toLowerCase())) {
+        	if(voiceInput(config).toLowerCase().contains(word.toLowerCase())) {
         		System.out.println("Good job!");
         		sentence.remove(0);
         	}
@@ -38,9 +46,6 @@ public class Main {
         		System.out.println("Incorrect, try again");
         	}
         }
-        System.out.println(voiceInput(config));
-        System.out.println(voiceInput(config));
-        System.out.println(voiceInput(config));
         
     }
     
