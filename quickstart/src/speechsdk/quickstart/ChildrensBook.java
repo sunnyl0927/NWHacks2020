@@ -6,8 +6,10 @@ import java.util.Scanner;
 public class ChildrensBook {
     private ArrayList<String> words;
     private int index;
+    private Scanner story;
 
     public ChildrensBook(Scanner file) {
+        story = file;
         index = -1;
 
 
@@ -27,8 +29,22 @@ public class ChildrensBook {
             }
         }
 
+        //System.out.println(fin);
         return fin.toLowerCase();
     }
+
+    public ArrayList<String> nextSentence() {
+        ArrayList<String> currentSentence = new ArrayList<>();
+        if(story.hasNext()) {
+            currentSentence.add(story.next());
+            while(story.hasNext() && !story.next().contains(".")) {
+                currentSentence.add(story.next());
+            }
+        }
+        //System.out.println(currentSentence);
+        return currentSentence;
+    }
+
 
     public String getNext() {
         index++;
